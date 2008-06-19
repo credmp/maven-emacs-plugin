@@ -460,14 +460,12 @@ public class JdeeMojo extends AbstractMojo {
                                                                      artifactMetadataSource, null,
                                                                      listeners);
             } catch (ArtifactResolutionException e) {
-                getLog().error("Artifact resolution failed", e);
-                //        getLog().error(Messages.getString("artifactresolution",
-                //                                          new Object[] {
-                //                                            e.getGroupId(),
-                //                                            e.getArtifactId(),
-                //                                            e.getVersion(),
-                //                                            e.getMessage()
-                //                                          }));
+                getLog().error("Artifact resolution failed for:\n" +
+                               "Group: " + e.getGroupId() + "\n" +
+                               "Artifact: " + e.getArtifactId() + "\n" +
+                               "Version: " + e.getVersion() + "\n" +
+                               "Message: " + e.getMessage() + "\n" 
+                               );
                 // if we are here artifactResolutionResult is null, create a
                 // project without dependencies but don't fail (this could be a
                 // reactor projects, we don't want to fail everything)
@@ -486,23 +484,17 @@ public class JdeeMojo extends AbstractMojo {
                 try {
                     artifactResolver.resolve(art, node.getRemoteRepositories(), localRepo);
                 } catch (ArtifactNotFoundException e) {
-                    getLog().debug("Artifact download failed", e);
-                    //          getLog().warn(Messages.getString("artifactdownload",
-                    //                                           new Object[] {
-                    //                                             e.getGroupId(),
-                    //                                             e.getArtifactId(),
-                    //                                             e.getVersion(),
-                    //                                             e.getMessage()
-                    //                                           }));
+                    getLog().debug("Artifact download failed:\n" +
+                                   "Group: " + e.getGroupId() + "\n" +
+                                   "Artifact: " + e.getArtifactId() + "\n" +
+                                   "Version: " + e.getVersion() + "\n" +
+                                   "Message: " + e.getMessage() + "\n");
                 } catch (ArtifactResolutionException e) {
-                    getLog().debug("Artifact resolution failed", e);
-                    //          getLog().warn(Messages.getString("artifactresolution",
-                    //                                           new Object[] {
-                    //                                             e.getGroupId(),
-                    //                                             e.getArtifactId(),
-                    //                                             e.getVersion(),
-                    //                                             e.getMessage()
-                    //                                           }));
+                    getLog().debug("Artifact resolution failed" +
+                                   "Group: " + e.getGroupId() + "\n" +
+                                   "Artifact: " + e.getArtifactId() + "\n" +
+                                   "Version: " + e.getVersion() + "\n" +
+                                   "Message: " + e.getMessage() + "\n");
                 }
 
                 if (emittedReactorProjectId.add(art.getGroupId() + '-' + art.getArtifactId())) {
@@ -1142,9 +1134,11 @@ public class JdeeMojo extends AbstractMojo {
             } catch (ArtifactNotFoundException e) {
                 // ignore, the jar has not been found
             } catch (ArtifactResolutionException e) {
-//                String message = Messages.getString("errorresolving", new Object[] {
-//                        classifier, artifact.getId(), e.getMessage()});
-                getLog().warn("Error resolving artifact");
+                getLog().warn("Error resolving artifact:\n" +
+                              "Group: " + e.getGroupId() + "\n" +
+                              "Artifact: " + e.getArtifactId() + "\n" +
+                              "Version: " + e.getVersion() + "\n" +
+                              "Message: " + e.getMessage() + "\n");
             }
 
             /*      boolean resolve = artifact.isResolved();
