@@ -1,0 +1,103 @@
+ ------
+ Introduction
+ ------
+ Lukáš Benda
+ ------
+ 02. 01. 2008
+ ------
+
+
+Maven Emacs Plugin
+
+	The Emacs Plugin is used to generate prj.el files in source, and test-source
+  directories which can automatic set some parameters for JDEE java project.
+
+  This project is not currently in maven repositories, because of you must run
+  goal with full package name and version like this:
+
+  mvn org.apache.maven.plugin:maven-emacs-plugin:1.2.2:jdee
+
+	this call jdee goal from maven-emacs-plugin of version 1.2.2.  I hope in future
+	will be add to official repositorie and then shell be run only by emacs:jdee.
+
+* What this plugin can
+
+  This plugin set classpath to all dependecies which is nead for copile and run
+	project.
+
+	Set path to checkstyle setting (read from maven-checkstyle-plugin)
+
+  Set version of new created class from version of project
+
+  Download javadocs and sources od dependecies from maven repositories and
+	generate javadocs if javadoc isn't in repositories.
+
+	Set list of javadocs and sources to prj.el and then will be use in JDEE
+
+* What is important
+
+	Set variable asi in {{{jdee.html}Emacs JDEE configuration}}
+
+  Because of JDEE cannot make diference between sources from project and from
+  dependecies this plugin use new parameter jde-depend-sourcepath.  Now isn't
+	any support for it, mabe in future.
+
+* Emacs modules
+
+  This module is designed for using with JDEE and with
+  {{{download/jde-maven2.el}jde-maven2.el}}
+  The {{{download/jde-maven2.el}jde-maven2.el}} is develop hand by hand with 
+	this project, it's based on jde-maven.el by Raffael Herzog and Christian Plate 
+
+* Goals Overview
+
+  The Maven Emacs Plugin has several goals.
+
+** Standard emacs goals
+
+  * {{{jdee-mojo.html}emacs:jdee}} create prj.el file in main and test java
+	 source directories.  As default in src/main/java and src/test/java direcotry.
+
+  ** Command line parameters
+
+    * globalCachePath - String - direcotry in which will be uncompress javadoc
+      or sources which is download from maven repositorie.  If is not set then
+      will be use direcotry .maven-emacs-plugin-cache in base dir of project
+
+    * jdeeProjectFileVersion - boolean - (default true) - if is set on true
+		  then will be set variable jde-project-file-version on current project version
+
+    * makeXref - boolean - if is set on true then will be create xref.data file
+
+    * downloadSources - boolean - if is set on true then will be download
+      sources of dependecies from remote repositorie
+
+    * downloadJavadocs - boolean - if is set on true then will be download
+      javadoc of dependecies from remote repositorie
+
+    * dependSources - boolean - if is set on true then will be in prj.el set
+      new parameter jde-depend-sourcepath which contains list of path to all
+      dependecies sources.
+
+    * dependJavadocs - boolean - (default true) - if is set on true then will
+		  be in prj.el set parametr jde-help-docset to dependecies javadocs.
+
+    * generateMissingJavadoc - boolean - (default true) - if set on true then
+		  will be generated javadocs from sources of dependecies if javadoc
+			missing in repositories
+
+		* defaultGoal, defaultProfile, defaultArgumets - string - default
+      goal, profile and argumets for runnig maven
+
+		* testGoal, testProfile, testArgumets - string
+		  - (default testGoal is surefire:test - default)
+      - goal, profile and argumets for runnig maven from test classes
+
+    * noRecreate - boolean - add to prj.el code which recreate
+		  run maven emacs:jdee with all arguments when user pom.xml is changed
+
+  * {{{clean-mojo.html}emacs:clean}} is used to delete the files created by
+	 this plugin. It's both of prj.el files, xref.data and
+	  .maven-emacs-plugin-cache if exist.
+
+

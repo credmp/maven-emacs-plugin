@@ -1,0 +1,107 @@
+ ------
+ JDEE settings
+ ------
+ Lukáš Benda
+ ------
+ 27. 12. 2007
+ ------
+
+
+Maven Emacs Plugin - JDEE settings
+
+* Use jde-project-file-version in @version tag in class javadoc
+
++----+
+(setq jde-javadoc-version-tag-template
+			 "\"* @version \" jde-loaded-project-file-version")
++----+
+
+* Some changes for using automatic set jde-help-docsets
+
+	This changes is necessery for have global javadocs and project specific
+	javadocs.
+
+	Define new custom variable (you can see below).  Add after it copy from
+	your customization file (.emacs.el, custom.el etc.) '(jde-help-docsets ....)
+	and chang to this (custom-set-variables '(jde-global-help-docsets ...)).
+
++----+
+(defcustom jde-global-help-docsets (list (list "JDK API" "" nil))
+  "*Lists collections of HTML files documenting Java classes.
+This list is append to `jde-help-class' for command to find help for
+a class. You can specify the following information for each docset:
+
+Docset type
+
+  The following types are valid:
+
+  * JDK API
+
+    JDK API documentation created by JDK developer (e.g., Sun)
+
+  * User (javadoc)
+
+    User collection in javadoc format.
+
+  * User (not javadoc)
+
+    User collection not in javadoc format.
+
+Docset directory
+
+   Directory containing the collection, e.g., d:/jdk1.3/docs/api.  If
+   the docset type is `JDK API' and this field is the empty string, the
+   JDE looks for the docset in the `docs/api' subdirectory of the directory
+   returned by `jde-get-jdk-dir'. The docset directory may be located on
+   a remote system in which case this field should specify the URL of the
+   docset directory, e.g., http://www.javasoft.com/j2se/1.3/docs/api. The
+   GNU utility, wget, or the w3 function `url-file-exists' must be
+   installed on your system to find javadoc pages located on remote
+   systems. Native Windows and cygwin ports of wget are readily available
+   on the Internet. Make sure that wget is in Emacs `exec-path' before
+   attempting to access documentation on remote systems. See
+   `jde-help-remote-file-exists-function' for more information.
+
+Doc lookup function
+
+   Should specify a function that accepts a fully qualified class name,
+   e.g., java.awt.String, and a docset directory and returns a path to
+   an HTML file that documents that class, e.g.,
+   d:/jdk1.2/docs/api/java/awt/String.html. This field must be specified
+   for non-javadoc collections. It is ignored for javadoc colletions.
+"
+  :group 'jde-project
+  :type '(repeat
+    (list
+     (radio-button-choice
+      :format "%t \n%v"
+      :tag "Docset type:"
+      (const "JDK API")
+      (const "User (javadoc)")
+      (const "User (not javadoc)"))
+     (file :tag "Docset directory")
+     ;;(symbol :tag "Doc lookup function")
+     (choice :tag "Doc lookup function"
+       (const nil)
+       function))))
++----+
+
+* Set default goal, arguments and profile for project
+
+	On example you want set default goal as GOAL, default profile PROFILE and
+	arguments as ARGUMENTS. 	In prj.el in basic dir of your project add this
+	line:
+
++----+
+;; Set default goal to GOAL
+	(jde-maven2-set-current-goal
+   	(if (jde-maven2-get-goal) (jde-maven2-get-goal)	"GOAL"))
+
+;; Set default profile to PROFILE
+	(jde-maven2-set-current-profile
+   	(if (jde-maven2-get-profile) (jde-maven2-get-profile) "PROFILE"))
+
+;; Set default arguments to ARGUMENTS
+	(jde-maven2-set-current-arguments
+   	(if (jde-maven2-get-arguments) (jde-maven2-get-arguments) "ARGUMENTS"))
++----+

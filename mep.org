@@ -1,0 +1,39 @@
+MEP    -*- mode: org; -*-
+#+CATEGORY: mep
+* TODO support for multiprojects [0/3]
+  - [ ] source
+  - [ ] javadoc
+  - [ ] target
+* TODO use for generating javadoc com.sun.tools.javadoc.Main.execute
+* TODO Create jde-global-help-docstest from jde-help-docsets if not exist
+* TODO Write report which source or javadoc is not found
+* TODO Make changes in JDEE project for support jde-depend-sources
+* TODO Make changes in JDEE project for support two different jde-classpath
+  It's neaded because of some dependencies is add by other dependecies.
+  I call first level dependecies and second level dependecies.  When you
+  write sources you can use class only from first level dependecines.  But
+  when you run application you must use both level of dependeciest.
+* TODO Test CleanMojo
+  I think it's not delete xref.data
+* Changes
+** v 1.2.2 - 2008-01-03
+   - To test project name is give -test as suffix
+*** DONE append source target dir to classpath of test
+     CLOSED: [2007-12-29 So 12:19]
+    because of test class need regular class from project
+*** DONE set default goal, profile and arguments
+     CLOSED: [2007-12-29 So 12:44]
+*** DONE dont destroy prj.el if some exception raise
+     CLOSED: [2007-12-29 So 13:01]
+*** DONE make lisp function which recreate prj.el when pom.xml is changed
+     CLOSED: [2007-12-29 So 20:42]
+** v 1.2.1 - 2007-12-27
+   - clean goal
+*** DONE Generate javadoc from source if javadoc package not exist
+     CLOSED: [2007-12-27 Čt 17:44]
+
+** v 1.2 - 2007-12-26
+   - download sources and javadocs from repositories and to prj.el
+   - set jde-checkstyle-style from maven-checkstyle-plugin
+   - add to end of generated prj.el load-library which load basic prj.el in
+     basedir

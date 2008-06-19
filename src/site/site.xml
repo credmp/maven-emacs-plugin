@@ -1,0 +1,35 @@
+<project>
+  <body>
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="FAQ" href="faq.html"/>
+    </menu>
+    <menu name="Configuration">
+      <item name="Emacs JDEE configuration" href="jdee.html"/>
+    </menu>
+
+    <menu name="Examples">
+      <item name="Prevent Module References" href="examples/prevent-module-references.html"/>
+    </menu>
+    <menu name="Downloads">
+      <item name="jde-maven2.el" href="download/jde-maven2.el" />
+      <item name="1.2.2" href="download/maven-emacs-plugin-1.2.2.tar.gz" />
+      <item name="1.2.1" href="download/maven-emacs-plugin-1.2.1.tar.gz" />
+      <item name="1.2" href="download/maven-emacs-plugin-1.2.tar.gz" />
+    </menu>
+    <menu name="Project">
+      <item name="info" href="project-info.html" />
+      <item name="reports" href="project-reports.html" />
+      <item name="summary" href="project-summary.html" />
+    </menu>
+    <menu name="Developers">
+      <item name="dependecies" href="dependencies.html" />
+      <item name="checkstyle" href="checkstyle.html" />
+      <item name="integration" href="integration.html" />
+      <item name="soures in html" href="jxr.html" />
+      <item name="junit tests" href="surefire-report.html" />
+      <item name="taglist" href="taglist.html" />
+      <item name="javadoc" href="apidocs/index.html" />
+    </menu>
+  </body>
+</project>
