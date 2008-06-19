@@ -2,52 +2,54 @@
  Introduction
  ------
  Lukáš Benda
+ Arjen Wiersma
  ------
+ 20. 06. 2008
  02. 01. 2008
  ------
 
 
 Maven Emacs Plugin
 
-	The Emacs Plugin is used to generate prj.el files in source, and test-source
-  directories which can automatic set some parameters for JDEE java project.
+	The Emacs Plugin is used to generate prj.el files in the source, and the test-source
+  directories which set the necessary parameters for a JDEE java project.
 
-  This project is not currently in maven repositories, because of you must run
-  goal with full package name and version like this:
+  This project is currently not in the maven repositories, therefor you need to install the source
+  package in your own local repository after which you can run the goal with full package name and 
+  version like this:
 
-  mvn org.apache.maven.plugin:maven-emacs-plugin:1.2.2:jdee
+  mvn org.credmp.maven.plugin:maven-emacs-plugin:1.2.2:jdee
 
-	this call jdee goal from maven-emacs-plugin of version 1.2.2.  I hope in future
-	will be add to official repositorie and then shell be run only by emacs:jdee.
+  this calls the jdee goal of the maven-emacs-plugin which has version 1.2.2. When the project
+  becomes stable and full featured, it will be added to the maven repositories.
 
 * What this plugin can
 
-  This plugin set classpath to all dependecies which is nead for copile and run
-	project.
+  This plugin sets the classpath to all dependecies which is nead to compile and run
+  project.
 
-	Set path to checkstyle setting (read from maven-checkstyle-plugin)
+  Sets the path to checkstyle (read from maven-checkstyle-plugin)
 
-  Set version of new created class from version of project
+  Set the version of newly created classes from version of project
 
   Download javadocs and sources od dependecies from maven repositories and
-	generate javadocs if javadoc isn't in repositories.
+  generate javadocs if javadoc it isn't in repositories.
 
-	Set list of javadocs and sources to prj.el and then will be use in JDEE
+  Set the list of javadocs and sources in prj.el which will be use in the JDEE
 
 * What is important
 
-	Set variable asi in {{{jdee.html}Emacs JDEE configuration}}
+  Configure the plugin as described in {{{jdee.html}Emacs JDEE configuration}}
 
   Because of JDEE cannot make diference between sources from project and from
   dependecies this plugin use new parameter jde-depend-sourcepath.  Now isn't
-	any support for it, mabe in future.
+  any support for it, mabe in future.
 
 * Emacs modules
 
-  This module is designed for using with JDEE and with
-  {{{download/jde-maven2.el}jde-maven2.el}}
-  The {{{download/jde-maven2.el}jde-maven2.el}} is develop hand by hand with 
-	this project, it's based on jde-maven.el by Raffael Herzog and Christian Plate 
+  This module is designed for using with JDEE and with {{{http://server.apnet.cz/~benzin/maven-emacs-plugin/download/jde-maven2.el}jde-maven2.el}}
+  The {{{download/jde-maven2.el}jde-maven2.el}} is developed hand by hand with this project, it's based on 
+  jde-maven.el by Raffael Herzog and Christian Plate 
 
 * Goals Overview
 
